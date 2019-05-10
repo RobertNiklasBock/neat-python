@@ -1,4 +1,4 @@
-"""tests for neat.distributed"""
+"""tests for neatfast.distributed"""
 from __future__ import print_function
 
 import socket
@@ -18,7 +18,7 @@ else:
     HAVE_THREADING = True
 
 import neat
-from neat.distributed import chunked, MODE_AUTO, MODE_PRIMARY, MODE_SECONDARY, ModeError, _STATE_RUNNING
+from neatfast.distributed import chunked, MODE_AUTO, MODE_PRIMARY, MODE_SECONDARY, ModeError, _STATE_RUNNING
 
 ON_PYPY = platform.python_implementation().upper().startswith("PYPY")
 
@@ -26,12 +26,12 @@ ON_PYPY = platform.python_implementation().upper().startswith("PYPY")
 
 def eval_dummy_genome_nn(genome, config):
     """dummy evaluation function"""
-    net = neat.nn.FeedForwardNetwork.create(genome, config)
+    net = neatfast.nn.FeedForwardNetwork.create(genome, config)
     return 0.0
 
 
 def test_chunked():
-    """Test for neat.distributed.chunked"""
+    """Test for neatfast.distributed.chunked"""
     # test chunked(range(110), 10)
     # => 11 chunks of 10 elements
     d110 = list(range(110))
@@ -49,13 +49,13 @@ def test_chunked():
     except ValueError:
         pass
     else:
-        raise Exception("neat.distributed.chunked(range(10), 0) did not raise an exception!")
+        raise Exception("neatfast.distributed.chunked(range(10), 0) did not raise an exception!")
     try:
         chunked(range(10), 1.1)
     except ValueError:
         pass
     else:
-        raise Exception("neat.distributed.chunked(range(10), 1.1) did not raise an exception!")
+        raise Exception("neatfast.distributed.chunked(range(10), 1.1) did not raise an exception!")
     # test chunked(range(13, 3))
     # => 4 chunks of 3 elements, 1 chunk of 1 element
     d13 = list(range(13))
@@ -71,7 +71,7 @@ def test_chunked():
 
 
 def test_host_is_local():
-    """test for neat.distributed.host_is_local"""
+    """test for neatfast.distributed.host_is_local"""
     tests = (
         # (hostname or ip, expected value)
         ("localhost", True),
@@ -85,7 +85,7 @@ def test_host_is_local():
         )
     for hostname, islocal in tests:
         try:
-            result = neat.host_is_local(hostname)
+            result = neatfast.host_is_local(hostname)
         except EnvironmentError: # give more feedback
             print("test_host_is_local: Error with hostname {0!r} (expected {1!r})".format(hostname,
                                                                                           islocal))
@@ -115,7 +115,7 @@ def test_DistributedEvaluator_mode():
     for hostname, mode, expected in tests:
         addr = (hostname, 8022)
         try:
-            de = neat.DistributedEvaluator(
+            de = neatfast.DistributedEvaluator(
                 addr,
                 authkey=b"abcd1234",
                 eval_function=eval_dummy_genome_nn,
@@ -143,7 +143,7 @@ def test_DistributedEvaluator_mode():
                 )
     # test invalid mode error
     try:
-        de = neat.DistributedEvaluator(
+        de = neatfast.DistributedEvaluator(
             addr,
             authkey=b"abcd1234",
             eval_function=eval_dummy_genome_nn,
@@ -158,7 +158,7 @@ def test_DistributedEvaluator_mode():
 
 def test_DistributedEvaluator_primary_restrictions():
     """Tests that some primary-exclusive methods fail when called by the secondaries"""
-    secondary = neat.DistributedEvaluator(
+    secondary = neatfast.DistributedEvaluator(
         ("localhost", 8022),
         authkey=b"abcd1234",
         eval_function=eval_dummy_genome_nn,
@@ -183,7 +183,7 @@ def test_DistributedEvaluator_primary_restrictions():
 
 def test_DistributedEvaluator_state_error1():
     """Tests that attempts to use an unstarted manager for set_secondary_state cause an error."""
-    primary = neat.DistributedEvaluator(
+    primary = neatfast.DistributedEvaluator(
         ("localhost", 8022),
         authkey=b"abcd1234",
         eval_function=eval_dummy_genome_nn,
@@ -198,7 +198,7 @@ def test_DistributedEvaluator_state_error1():
 
 def test_DistributedEvaluator_state_error2():
     """Tests that attempts to use an unstarted manager for get_inqueue cause an error."""
-    primary = neat.DistributedEvaluator(
+    primary = neatfast.DistributedEvaluator(
         ("localhost", 8022),
         authkey=b"abcd1234",
         eval_function=eval_dummy_genome_nn,
@@ -213,7 +213,7 @@ def test_DistributedEvaluator_state_error2():
 
 def test_DistributedEvaluator_state_error3():
     """Tests that attempts to use an unstarted manager for get_outqueue cause an error."""
-    primary = neat.DistributedEvaluator(
+    primary = neatfast.DistributedEvaluator(
         ("localhost", 8022),
         authkey=b"abcd1234",
         eval_function=eval_dummy_genome_nn,
@@ -228,7 +228,7 @@ def test_DistributedEvaluator_state_error3():
 
 def test_DistributedEvaluator_state_error4():
     """Tests that attempts to use an unstarted manager for get_namespace cause an error."""
-    primary = neat.DistributedEvaluator(
+    primary = neatfast.DistributedEvaluator(
         ("localhost", 8022),
         authkey=b"abcd1234",
         eval_function=eval_dummy_genome_nn,
@@ -243,7 +243,7 @@ def test_DistributedEvaluator_state_error4():
 
 def test_DistributedEvaluator_state_error5():
     """Tests that attempts to set an invalid state cause an error."""
-    primary = neat.DistributedEvaluator(
+    primary = neatfast.DistributedEvaluator(
         ("localhost", 8022),
         authkey=b"abcd1234",
         eval_function=eval_dummy_genome_nn,
@@ -375,21 +375,21 @@ def run_primary(addr, authkey, generations):
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(True))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(max(1,int(generations/3)), 5))
+    p.add_reporter(neatfast.Checkpointer(max(1,int(generations/3)), 5))
 
     # Run for the specified number of generations.
-    de = neat.DistributedEvaluator(
+    de = neatfast.DistributedEvaluator(
         addr,
         authkey=authkey,
         eval_function=eval_dummy_genome_nn,
@@ -416,20 +416,20 @@ def run_secondary(addr, authkey, num_workers=1):
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(True))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
 
     # Run for the specified number of generations.
-    de = neat.DistributedEvaluator(
+    de = neatfast.DistributedEvaluator(
         addr,
         authkey=authkey,
         eval_function=eval_dummy_genome_nn,

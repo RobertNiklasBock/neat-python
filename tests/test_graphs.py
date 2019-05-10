@@ -1,5 +1,5 @@
 import random
-from neat.graphs import creates_cycle, required_for_output, feed_forward_layers
+from neatfast.graphs import creates_cycle, required_for_output, feed_forward_layers
 
 
 def assert_almost_equal(x, y, tol):

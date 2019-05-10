@@ -5,7 +5,7 @@ import neat
 VERBOSE = True
 
 def eval_dummy_genome_nn(genome, config):
-    net = neat.nn.FeedForwardNetwork.create(genome, config)
+    net = neatfast.nn.FeedForwardNetwork.create(genome, config)
     ignored_output = net.activate((0.5, 0.5))
     return 0.0
 
@@ -19,18 +19,18 @@ def test_serial():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(True))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(1, 5))
+    p.add_reporter(neatfast.Checkpointer(1, 5))
     
     # Run for up to 19 generations.
     p.run(eval_dummy_genomes_nn, 19)
@@ -49,7 +49,7 @@ def test_serial():
 
 
 def eval_dummy_genome_nn_bad(genome, config):
-    net = neat.nn.FeedForwardNetwork.create(genome, config)
+    net = neatfast.nn.FeedForwardNetwork.create(genome, config)
     ignored_output = net.activate((0.5, 0.5, 0.5))
     return 0.0
 
@@ -62,12 +62,12 @@ def test_serial_bad_input():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     try:
         p.run(eval_dummy_genomes_nn_bad, 45)
@@ -81,8 +81,8 @@ def test_serial_random():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration2')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     if VERBOSE:
@@ -90,13 +90,13 @@ def test_serial_random():
             config.genome_config.__dict__))
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(VERBOSE))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(VERBOSE))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(15, 1))
+    p.add_reporter(neatfast.Checkpointer(15, 1))
 
     # Run for up to 45 generations.
     p.run(eval_dummy_genomes_nn, 45)
@@ -117,8 +117,8 @@ def test_serial3():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration3')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     if VERBOSE:
@@ -126,13 +126,13 @@ def test_serial3():
             config.genome_config.__dict__))
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(VERBOSE))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(VERBOSE))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(15, 1))
+    p.add_reporter(neatfast.Checkpointer(15, 1))
 
     # Run for up to 45 generations.
     p.run(eval_dummy_genomes_nn, 45)
@@ -154,8 +154,8 @@ def test_serial4():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration4')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     if VERBOSE:
@@ -163,13 +163,13 @@ def test_serial4():
             config.genome_config.__dict__))
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(VERBOSE))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(VERBOSE))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(15, 1))
+    p.add_reporter(neatfast.Checkpointer(15, 1))
 
     # Run for up to 45 generations.
     p.run(eval_dummy_genomes_nn, 45)
@@ -190,8 +190,8 @@ def test_serial5():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration5')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     if VERBOSE:
@@ -199,13 +199,13 @@ def test_serial5():
             config.genome_config.__dict__))
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(VERBOSE))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(VERBOSE))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(15, 1))
+    p.add_reporter(neatfast.Checkpointer(15, 1))
 
     # Run for up to 45 generations.
     p.run(eval_dummy_genomes_nn, 45)
@@ -226,8 +226,8 @@ def test_serial4_bad():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration4')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     if VERBOSE:
@@ -235,7 +235,7 @@ def test_serial4_bad():
             config.genome_config.__dict__))
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     try:
         p.run(eval_dummy_genomes_nn, None)
@@ -252,12 +252,12 @@ def test_serial_bad_config():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'bad_configuration1')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     try:
         p.run(eval_dummy_genomes_nn, 19)
@@ -272,13 +272,13 @@ def test_serial_bad_configA():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'bad_configurationA')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     try:
         # Create the population, which is the top-level object for a NEAT run.
-        p = neat.Population(config)
+        p = neatfast.Population(config)
     except RuntimeError:
         pass
     else:
@@ -290,17 +290,17 @@ def test_serial_extinction_exception():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
     config.stagnation_config.max_stagnation = 1
     config.stagnation_config.species_elitism = 0
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(True))
+    p.add_reporter(neatfast.StdOutReporter(True))
 
     try:
         # Run for up to 45 generations.
@@ -315,20 +315,20 @@ def test_serial_extinction_no_exception():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
     config.stagnation_config.max_stagnation = 1
     config.stagnation_config.species_elitism = 0
     config.reset_on_extinction = True
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    reporter = neat.StdOutReporter(True)
+    reporter = neatfast.StdOutReporter(True)
     p.add_reporter(reporter)
-    stats = neat.StatisticsReporter()
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
 
     # Run for up to 45 generations.
@@ -344,55 +344,55 @@ def test_parallel():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(VERBOSE))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(VERBOSE))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(1, 5))
+    p.add_reporter(neatfast.Checkpointer(1, 5))
 
     # Run for up to 19 generations.
-    pe = neat.ParallelEvaluator(4, eval_dummy_genome_nn)
+    pe = neatfast.ParallelEvaluator(4, eval_dummy_genome_nn)
     p.run(pe.evaluate, 19)
 
     stats.save()
 
 
 def test_threaded_evaluation():
-    """Tests a neat evolution using neat.threaded.ThreadedEvaluator"""
+    """Tests a neat evolution using neatfast.threaded.ThreadedEvaluator"""
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(True))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(1, 5))
+    p.add_reporter(neatfast.Checkpointer(1, 5))
 
     # Run for up to 19 generations.
-    pe = neat.ThreadedEvaluator(4, eval_dummy_genome_nn)
+    pe = neatfast.ThreadedEvaluator(4, eval_dummy_genome_nn)
     p.run(pe.evaluate, 19)
 
     stats.save()
 
 
 def test_threaded_evaluator():
-    """Tests general functionality of neat.threaded.ThreadedEvaluator"""
+    """Tests general functionality of neatfast.threaded.ThreadedEvaluator"""
     n_workers = 3
-    e = neat.ThreadedEvaluator(n_workers, eval_dummy_genome_nn)
+    e = neatfast.ThreadedEvaluator(n_workers, eval_dummy_genome_nn)
     try:
         # ensure workers are not started
         if (len(e.workers) > 0) or (e.working):
@@ -451,7 +451,7 @@ def test_threaded_evaluator():
 
 def eval_dummy_genomes_nn_recurrent(genomes, config):
     for ignored_genome_id, genome in genomes:
-        net = neat.nn.RecurrentNetwork.create(genome, config)
+        net = neatfast.nn.RecurrentNetwork.create(genome, config)
         ignored_output = net.activate((0.5,0.5))
         net.reset()
         genome.fitness = 0.0
@@ -462,19 +462,19 @@ def test_run_nn_recurrent():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
     config.feed_forward = False
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(VERBOSE))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(VERBOSE))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(1, 5))
+    p.add_reporter(neatfast.Checkpointer(1, 5))
 
     # Run for up to 19 generations.
     p.run(eval_dummy_genomes_nn_recurrent, 19)
@@ -483,7 +483,7 @@ def test_run_nn_recurrent():
 
 def eval_dummy_genomes_nn_recurrent_bad(genomes, config):
     for ignored_genome_id, genome in genomes:
-        net = neat.nn.RecurrentNetwork.create(genome, config)
+        net = neatfast.nn.RecurrentNetwork.create(genome, config)
         ignored_output = net.activate((0.5,0.5,0.5))
         net.reset()
         genome.fitness = 0.0
@@ -494,13 +494,13 @@ def test_run_nn_recurrent_bad():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
     config.feed_forward = False
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     try:
         p.run(eval_dummy_genomes_nn_recurrent_bad, 19)
@@ -511,7 +511,7 @@ def test_run_nn_recurrent_bad():
 
 def eval_dummy_genomes_ctrnn(genomes, config):
     for genome_id, genome in genomes:
-        net = neat.ctrnn.CTRNN.create(genome, config, 0.01)
+        net = neatfast.ctrnn.CTRNN.create(genome, config, 0.01)
         if genome_id <= 150:
             genome.fitness = 0.0
         else:
@@ -524,19 +524,19 @@ def test_run_ctrnn():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
     config.feed_forward = False
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(VERBOSE))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(VERBOSE))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(1, 5))
+    p.add_reporter(neatfast.Checkpointer(1, 5))
 
     # Run for up to 19 generations.
     p.run(eval_dummy_genomes_ctrnn, 19)
@@ -554,7 +554,7 @@ def test_run_ctrnn():
 
 def eval_dummy_genomes_ctrnn_bad(genomes, config):
     for genome_id, genome in genomes:
-        net = neat.ctrnn.CTRNN.create(genome, config, 0.01)
+        net = neatfast.ctrnn.CTRNN.create(genome, config, 0.01)
         net.advance([0.5,0.5,0.5], 0.01, 0.05)
         if genome_id <= 150:
             genome.fitness = 0.0
@@ -567,13 +567,13 @@ def test_run_ctrnn_bad():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
     config.feed_forward = False
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     try:
         p.run(eval_dummy_genomes_ctrnn_bad, 19)
@@ -585,7 +585,7 @@ def test_run_ctrnn_bad():
 
 def eval_dummy_genomes_iznn(genomes, config):
     for genome_id, genome in genomes:
-        net = neat.iznn.IZNN.create(genome, config)
+        net = neatfast.iznn.IZNN.create(genome, config)
         if genome_id < 10:
             net.reset()
             genome.fitness = 0.0
@@ -604,18 +604,18 @@ def test_run_iznn():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration_iznn')
-    config = neat.Config(neat.iznn.IZGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.iznn.IZGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(True))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(2, 10))
+    p.add_reporter(neatfast.Checkpointer(2, 10))
 
     # Run for up to 20 generations.
     p.run(eval_dummy_genomes_iznn, 20)
@@ -632,7 +632,7 @@ def test_run_iznn():
 
 def eval_dummy_genomes_iznn_bad(genomes, config):
     for genome_id, genome in genomes:
-        net = neat.iznn.IZNN.create(genome, config)
+        net = neatfast.iznn.IZNN.create(genome, config)
         net.set_inputs([0.5,0.5,0.5])
         if genome_id < 10:
             net.reset()
@@ -647,12 +647,12 @@ def test_run_iznn_bad():
     # Load configuration.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration_iznn')
-    config = neat.Config(neat.iznn.IZGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.iznn.IZGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     try:
         p.run(eval_dummy_genomes_iznn_bad, 19)

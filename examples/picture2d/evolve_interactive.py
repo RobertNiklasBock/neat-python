@@ -14,7 +14,7 @@ import pygame
 
 from multiprocessing import Pool
 import neat
-from neat.six_util import itervalues
+from neatfast.six_util import itervalues
 
 from common import eval_mono_image, eval_gray_image, eval_color_image
 
@@ -211,8 +211,8 @@ def run():
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'interactive_config')
     # Note that we provide the custom stagnation class to the Config constructor.
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, InteractiveStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, InteractiveStagnation,
                          config_path)
 
     # Make sure the network has the expected number of outputs.
@@ -222,11 +222,11 @@ def run():
         config.output_nodes = 1
 
     config.pop_size = pb.num_cols * pb.num_rows
-    pop = neat.Population(config)
+    pop = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    pop.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
+    pop.add_reporter(neatfast.StdOutReporter(True))
+    stats = neatfast.StatisticsReporter()
     pop.add_reporter(stats)
 
     while 1:

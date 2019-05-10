@@ -1,5 +1,5 @@
-from neat.graphs import required_for_output
-from neat.six_util import itervalues, iteritems
+from neatfast.graphs import required_for_output
+from neatfast.six_util import itervalues, iteritems
 
 
 class RecurrentNetwork(object):

@@ -7,12 +7,12 @@ from random import choice, random, shuffle
 
 import sys
 
-from neat.activations import ActivationFunctionSet
-from neat.aggregations import AggregationFunctionSet
-from neat.config import ConfigParameter, write_pretty_params
-from neat.genes import DefaultConnectionGene, DefaultNodeGene
-from neat.graphs import creates_cycle
-from neat.six_util import iteritems, iterkeys
+from neatfast.activations import ActivationFunctionSet
+from neatfast.aggregations import AggregationFunctionSet
+from neatfast.config import ConfigParameter, write_pretty_params
+from neatfast.genes import DefaultConnectionGene, DefaultNodeGene
+from neatfast.graphs import creates_cycle
+from neatfast.six_util import iteritems, iterkeys
 
 
 class DefaultGenomeConfig(object):
@@ -480,7 +480,7 @@ class DefaultGenome(object):
         """
         Randomly connect one input to all output nodes
         (FS-NEAT without connections to hidden, if any).
-        Originally connect_fs_neat.
+        Originally connect_fs_neatfast.
         """
         input_id = choice(config.input_keys)
         for output_id in config.output_keys:

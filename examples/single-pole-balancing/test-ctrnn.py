@@ -11,7 +11,7 @@ from cart_pole import CartPole, discrete_actuator_force
 from movie import make_movie
 
 import neat
-from neat import nn
+from neatfast import nn
 
 # load the winner
 with open('winner-ctrnn', 'rb') as f:
@@ -24,13 +24,13 @@ print(c)
 # the same directory as this script.
 local_dir = os.path.dirname(__file__)
 config_path = os.path.join(local_dir, 'config-ctrnn')
-config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                     neat.DefaultSpeciesSet, neat.DefaultStagnation,
+config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                     neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                      config_path)
 
 sim = CartPole()
 
-net = neat.ctrnn.CTRNN.create(c, config, sim.time_step)
+net = neatfast.ctrnn.CTRNN.create(c, config, sim.time_step)
 
 print()
 print("Initial conditions:")

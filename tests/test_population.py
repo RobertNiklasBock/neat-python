@@ -10,12 +10,12 @@ class PopulationTests(unittest.TestCase):
             # Load configuration.
             local_dir = os.path.dirname(__file__)
             config_path = os.path.join(local_dir, 'test_configuration')
-            config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                                 neat.DefaultSpeciesSet, neat.DefaultStagnation,
+            config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                                 neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                                  config_path)
             config.fitness_criterion = c
 
-            p = neat.Population(config)
+            p = neatfast.Population(config)
 
             def eval_genomes(genomes, config):
                 for genome_id, genome in genomes:
@@ -27,13 +27,13 @@ class PopulationTests(unittest.TestCase):
         # Load configuration.
         local_dir = os.path.dirname(__file__)
         config_path = os.path.join(local_dir, 'test_configuration')
-        config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                             neat.DefaultSpeciesSet, neat.DefaultStagnation,
+        config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                             neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                              config_path)
         config.fitness_criterion = 'szechaun sauce'
 
         with self.assertRaises(Exception):
-            p = neat.Population(config)
+            p = neatfast.Population(config)
 
 
 # def test_minimal():

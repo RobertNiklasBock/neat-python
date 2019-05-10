@@ -1,5 +1,5 @@
 """
-A threaded version of XOR using neat.threaded.
+A threaded version of XOR using neatfast.threaded.
 
 Since most python implementations use a GIL, a threaded version probably won't
 run any faster than the single-threaded version.
@@ -38,7 +38,7 @@ def eval_genome(genome, config):
 	should return one float (that genome's fitness).
 	"""
 
-	net = neat.nn.FeedForwardNetwork.create(genome, config)
+	net = neatfast.nn.FeedForwardNetwork.create(genome, config)
 	error = 4.0
 	for xi, xo in zip(xor_inputs, xor_outputs):
 		output = net.activate(xi)
@@ -49,20 +49,20 @@ def eval_genome(genome, config):
 def run(config_file):
 	"""load the config, create a population, evolve and show the result"""
 	# Load configuration.
-	config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-						 neat.DefaultSpeciesSet, neat.DefaultStagnation,
+	config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+						 neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
 						 config_file)
 
 	# Create the population, which is the top-level object for a NEAT run.
-	p = neat.Population(config)
+	p = neatfast.Population(config)
 
 	# Add a stdout reporter to show progress in the terminal.
-	p.add_reporter(neat.StdOutReporter(True))
-	stats = neat.StatisticsReporter()
+	p.add_reporter(neatfast.StdOutReporter(True))
+	stats = neatfast.StatisticsReporter()
 	p.add_reporter(stats)
 
 	# Run for up to 300 generations.
-	pe = neat.ThreadedEvaluator(4, eval_genome)
+	pe = neatfast.ThreadedEvaluator(4, eval_genome)
 	winner = p.run(pe.evaluate, 300)
 	pe.stop()
 
@@ -71,7 +71,7 @@ def run(config_file):
 
 	# Show output of the most fit genome against training data.
 	print('\nOutput:')
-	winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
+	winner_net = neatfast.nn.FeedForwardNetwork.create(winner, config)
 	for xi, xo in zip(xor_inputs, xor_outputs):
 		output = winner_net.activate(xi)
 		print(

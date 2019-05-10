@@ -1,7 +1,7 @@
 import os
 
 import neat
-from neat import activations
+from neatfast import activations
 
 
 # TODO: These tests are just smoke tests to make sure nothing has become badly broken.  Expand
@@ -112,8 +112,8 @@ def plus_activation(x):
 def test_add_plus():
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
     config.genome_config.add_activation('plus', plus_activation)
     assert config.genome_config.activation_defs.get('plus') is not None
@@ -165,8 +165,8 @@ def test_function_set():
 def test_bad_add1():
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
     
     try:
@@ -179,8 +179,8 @@ def test_bad_add1():
 def test_bad_add2():
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'test_configuration')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
     
     try:

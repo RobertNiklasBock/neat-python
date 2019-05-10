@@ -1,6 +1,6 @@
 import sys
 import unittest
-from neat.reproduction import DefaultReproduction
+from neatfast.reproduction import DefaultReproduction
 
 class TestSpawnComputation(unittest.TestCase):
     def test_spawn_adjust1(self):

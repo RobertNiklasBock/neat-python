@@ -1,5 +1,5 @@
-from neat.graphs import feed_forward_layers
-from neat.six_util import itervalues
+from neatfast.graphs import feed_forward_layers
+from neatfast.six_util import itervalues
 
 
 class FeedForwardNetwork(object):

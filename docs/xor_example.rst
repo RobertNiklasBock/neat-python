@@ -42,9 +42,9 @@ Running NEAT
 Once you have implemented a fitness function, you mostly just need some additional boilerplate code that carries out
 the following steps:
 
-* Create a :py:class:`neat.config.Config <config.Config>` object from the configuration file (described in the :doc:`config_file`).
+* Create a :py:class:`neatfast.config.Config <config.Config>` object from the configuration file (described in the :doc:`config_file`).
 
-* Create a :py:class:`neat.population.Population <population.Population>` object using the ``Config`` object created above.
+* Create a :py:class:`neatfast.population.Population <population.Population>` object using the ``Config`` object created above.
 
 * Call the :py:meth:`run <population.Population.run>` method on the ``Population`` object, giving it your fitness function and (optionally) the maximum number of generations you want NEAT to run.
 
@@ -55,7 +55,7 @@ Getting the results
 -------------------
 
 Once the call to the population object's ``run`` method has returned, you can query the ``statistics`` member of the
-population (a :py:class:`neat.statistics.StatisticsReporter <statistics.StatisticsReporter>` object) to get the best genome(s) seen during the run.
+population (a :py:class:`neatfast.statistics.StatisticsReporter <statistics.StatisticsReporter>` object) to get the best genome(s) seen during the run.
 In this example, we take the 'winner' genome to be that returned by ``pop.statistics.best_genome()``.
 
 Other information available from the default statistics object includes per-generation mean fitness, per-generation standard deviation of fitness,

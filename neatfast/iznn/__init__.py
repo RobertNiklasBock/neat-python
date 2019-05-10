@@ -9,11 +9,11 @@ IEEE TRANSACTIONS ON NEURAL NETWORKS, VOL. 14, NO. 6, NOVEMBER 2003
 http://www.izhikevich.org/publications/spikes.pdf
 """
 
-from neat.attributes import FloatAttribute
-from neat.genes import BaseGene, DefaultConnectionGene
-from neat.genome import DefaultGenomeConfig, DefaultGenome
-from neat.graphs import required_for_output
-from neat.six_util import itervalues
+from neatfast.attributes import FloatAttribute
+from neatfast.genes import BaseGene, DefaultConnectionGene
+from neatfast.genome import DefaultGenomeConfig, DefaultGenome
+from neatfast.graphs import required_for_output
+from neatfast.six_util import itervalues
 
 # a, b, c, d are the parameters of the Izhikevich model.
 # a: the time scale of the recovery variable

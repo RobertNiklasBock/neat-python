@@ -1,8 +1,8 @@
 """Handles the continuous-time recurrent neural network implementation."""
 from __future__ import division
 
-from neat.graphs import required_for_output
-from neat.six_util import itervalues, iteritems
+from neatfast.graphs import required_for_output
+from neatfast.six_util import itervalues, iteritems
 
 
 class CTRNNNodeEval(object):

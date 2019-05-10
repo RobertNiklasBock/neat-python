@@ -9,7 +9,7 @@ import warnings
 
 from operator import mul
 
-from neat.math_util import mean, median2
+from neatfast.math_util import mean, median2
 
 if sys.version_info[0] > 2:
     from functools import reduce
