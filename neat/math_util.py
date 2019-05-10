@@ -1,21 +1,18 @@
 """Commonly used functions not available in the Python2 standard library."""
 from __future__ import division
-
 from math import sqrt, exp
+
+import numpy as np
 
 
 def mean(values):
-    values = list(values)
-    return sum(map(float, values)) / len(values)
+    return np.mean(values)
 
 
 def median(values):
-    values = list(values)
-    values.sort()
-    return values[len(values) // 2]
+    return np.median(values)
 
 def median2(values):
-    values = list(values)
     n = len(values)
     if n <= 2:
         return mean(values)
@@ -26,13 +23,11 @@ def median2(values):
     return (values[i - 1] + values[i])/2.0
 
 def variance(values):
-    values = list(values)
-    m = mean(values)
-    return sum((v - m) ** 2 for v in values) / len(values)
+    return np.var(values)
 
 
 def stdev(values):
-    return sqrt(variance(values))
+    return np.std(values)
 
 
 def softmax(values):
