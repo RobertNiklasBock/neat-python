@@ -1,9 +1,9 @@
 """Keeps track of whether species are making progress and helps remove ones that are not."""
 import sys
 
-from neat.config import ConfigParameter, DefaultClassConfig
-from neat.six_util import iteritems
-from neat.math_util import stat_functions
+from neatfast.config import ConfigParameter, DefaultClassConfig
+from neatfast.six_util import iteritems
+from neatfast.math_util import stat_functions
 
 # TODO: Add a method for the user to change the "is stagnant" computation.
 

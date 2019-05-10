@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 import neat
-from neat.activations import sigmoid_activation
+from neatfast.activations import sigmoid_activation
 
 
 def test_basic():
@@ -9,10 +9,10 @@ def test_basic():
     node1_inputs = [(1, 0.9), (2, 0.2)]
     node2_inputs = [(1, -0.2), (2, 0.9)]
 
-    node_evals = {1: neat.ctrnn.CTRNNNodeEval(0.01, sigmoid_activation, sum, -2.75 / 5.0, 1.0, node1_inputs),
-                  2: neat.ctrnn.CTRNNNodeEval(0.01, sigmoid_activation, sum, -1.75 / 5.0, 1.0, node2_inputs)}
+    node_evals = {1: neatfast.ctrnn.CTRNNNodeEval(0.01, sigmoid_activation, sum, -2.75 / 5.0, 1.0, node1_inputs),
+                  2: neatfast.ctrnn.CTRNNNodeEval(0.01, sigmoid_activation, sum, -1.75 / 5.0, 1.0, node2_inputs)}
 
-    net = neat.ctrnn.CTRNN([], [1, 2], node_evals)
+    net = neatfast.ctrnn.CTRNN([], [1, 2], node_evals)
 
     init1 = 0.0
     init2 = 0.0

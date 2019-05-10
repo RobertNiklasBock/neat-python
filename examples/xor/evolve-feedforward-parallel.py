@@ -1,5 +1,5 @@
 """
-A parallel version of XOR using neat.parallel.
+A parallel version of XOR using neatfast.parallel.
 
 Since XOR is a simple experiment, a parallel version probably won't run any
 faster than the single-process version, due to the overhead of
@@ -42,7 +42,7 @@ def eval_genome(genome, config):
     instead of a neuroevolution demo. :)
     """
 
-    net = neat.nn.FeedForwardNetwork.create(genome, config)
+    net = neatfast.nn.FeedForwardNetwork.create(genome, config)
     error = 4.0
     for xi, xo in zip(xor_inputs, xor_outputs):
         output = net.activate(xi)
@@ -52,20 +52,20 @@ def eval_genome(genome, config):
 
 def run(config_file):
     # Load configuration.
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_file)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(True))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
 
     # Run for up to 300 generations.
-    pe = neat.ParallelEvaluator(4, eval_genome)
+    pe = neatfast.ParallelEvaluator(4, eval_genome)
     winner = p.run(pe.evaluate, 300)
 
     # Display the winning genome.
@@ -73,7 +73,7 @@ def run(config_file):
 
     # Show output of the most fit genome against training data.
     print('\nOutput:')
-    winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
+    winner_net = neatfast.nn.FeedForwardNetwork.create(winner, config)
     for xi, xo in zip(xor_inputs, xor_outputs):
         output = winner_net.activate(xi)
         print("input {!r}, expected output {!r}, got {!r}".format(xi, xo, output))

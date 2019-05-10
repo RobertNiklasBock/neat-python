@@ -80,8 +80,8 @@ def run():
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'novelty_config')
     # Note that we provide the custom stagnation class to the Config constructor.
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     ne = NoveltyEvaluator(4, 'color')
@@ -90,11 +90,11 @@ def run():
     else:
         config.output_nodes = 1
 
-    pop = neat.Population(config)
+    pop = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    pop.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
+    pop.add_reporter(neatfast.StdOutReporter(True))
+    stats = neatfast.StatisticsReporter()
     pop.add_reporter(stats)
 
     while 1:

@@ -10,7 +10,7 @@ import pickle
 import cart_pole
 
 import neat
-from neat.math_util import mean
+from neatfast.math_util import mean
 import visualize
 
 runs_per_net = 5
@@ -20,7 +20,7 @@ time_const = cart_pole.CartPole.time_step
 
 # Use the CTRNN network phenotype and the discrete actuator force function.
 def eval_genome(genome, config):
-    net = neat.ctrnn.CTRNN.create(genome, config, time_const)
+    net = neatfast.ctrnn.CTRNN.create(genome, config, time_const)
 
     fitnesses = []
     for runs in range(runs_per_net):
@@ -64,19 +64,19 @@ def run():
     # the same directory as this script.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config-ctrnn')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
-    pop = neat.Population(config)
-    stats = neat.StatisticsReporter()
+    pop = neatfast.Population(config)
+    stats = neatfast.StatisticsReporter()
     pop.add_reporter(stats)
-    pop.add_reporter(neat.StdOutReporter(True))
+    pop.add_reporter(neatfast.StdOutReporter(True))
 
     if 0:
         winner = pop.run(eval_genomes)
     else:
-        pe = neat.ParallelEvaluator(4, eval_genome)
+        pe = neatfast.ParallelEvaluator(4, eval_genome)
         winner = pop.run(pe.evaluate)
 
     # Save the winner.

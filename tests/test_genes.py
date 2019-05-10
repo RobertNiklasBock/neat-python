@@ -1,2 +1,2 @@
-from neat import genes
+from neatfast import genes
 

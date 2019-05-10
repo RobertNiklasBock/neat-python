@@ -1,5 +1,5 @@
-from neat import activations
-from neat.nn import FeedForwardNetwork
+from neatfast import activations
+from neatfast.nn import FeedForwardNetwork
 
 
 def assert_almost_equal(x, y, tol):

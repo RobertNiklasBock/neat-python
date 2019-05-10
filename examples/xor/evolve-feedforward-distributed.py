@@ -1,5 +1,5 @@
 """
-A distributed version of XOR using neat.distributed.
+A distributed version of XOR using neatfast.distributed.
 
 Since XOR is a simple experiment, a distributed version probably won't run any
 faster than the single-process version, due to the overhead of
@@ -44,7 +44,7 @@ def eval_genome(genome, config):
     otherwise you'll have made a fork bomb instead of a neuroevolution demo. :)
     """
 
-    net = neat.nn.FeedForwardNetwork.create(genome, config)
+    net = neatfast.nn.FeedForwardNetwork.create(genome, config)
     error = 4.0
     for xi, xo in zip(xor_inputs, xor_outputs):
         output = net.activate(xi)
@@ -54,20 +54,20 @@ def eval_genome(genome, config):
 
 def run(config_file, addr, authkey, mode, workers):
     # Load configuration.
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_file)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(True))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
 
     # setup an DistributedEvaluator
-    de = neat.DistributedEvaluator(
+    de = neatfast.DistributedEvaluator(
         addr,  # connect to addr
         authkey,  # use authkey to authenticate
         eval_genome,  # use eval_genome() to evaluate a genome
@@ -77,7 +77,7 @@ def run(config_file, addr, authkey, mode, workers):
                             # wait at most 10 seconds for the result
         mode=mode,  # wether this is the primary or a secondary node
                     # in most case you can simply pass
-                    # 'neat.distributed.MODE_AUTO' as the mode.
+                    # 'neatfast.distributed.MODE_AUTO' as the mode.
                     # This causes the DistributedEvaluator to
                     # determine the mode by checking if address
                     # points to the localhost.
@@ -104,7 +104,7 @@ def run(config_file, addr, authkey, mode, workers):
 
     # Show output of the most fit genome against training data.
     print('\nOutput:')
-    winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
+    winner_net = neatfast.nn.FeedForwardNetwork.create(winner, config)
     for xi, xo in zip(xor_inputs, xor_outputs):
         output = winner_net.activate(xi)
         print("input {!r}, expected output {!r}, got {!r}".format(xi, xo, output))
@@ -159,8 +159,8 @@ if __name__ == '__main__':
     parser.add_argument(
         "--force-secondary","--force-slave",
         action="store_const",
-        const=neat.distributed.MODE_SECONDARY,
-        default=neat.distributed.MODE_AUTO,
+        const=neatfast.distributed.MODE_SECONDARY,
+        default=neatfast.distributed.MODE_AUTO,
         help="Force secondary mode (useful for debugging)",
         dest="mode",
         )
@@ -172,7 +172,7 @@ if __name__ == '__main__':
     authkey = ns.authkey
     mode = ns.mode
 
-    if (host in ("0.0.0.0", "localhost", "")) and (mode == neat.distributed.MODE_AUTO):
+    if (host in ("0.0.0.0", "localhost", "")) and (mode == neatfast.distributed.MODE_AUTO):
         # print an error message
         # we are using auto-mode determination in this example,
         # which does not work well with '0.0.0.0' or 'localhost'.

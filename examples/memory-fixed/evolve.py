@@ -33,7 +33,7 @@ num_tests = 2 ** (N+2)
 
 
 def eval_genome(genome, config):
-    net = neat.nn.RecurrentNetwork.create(genome, config)
+    net = neatfast.nn.RecurrentNetwork.create(genome, config)
 
     error = 0.0
     for _ in range(num_tests):
@@ -64,8 +64,8 @@ def run():
     # Determine path to configuration file.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     # Demonstration of saving a configuration back to a text file.
@@ -76,13 +76,13 @@ def run():
     # config file activation_options option under the DefaultGenome section.
     config.genome_config.add_activation('my_sinc_function', sinc)
 
-    pop = neat.Population(config)
-    stats = neat.StatisticsReporter()
+    pop = neatfast.Population(config)
+    stats = neatfast.StatisticsReporter()
     pop.add_reporter(stats)
-    pop.add_reporter(neat.StdOutReporter(True))
+    pop.add_reporter(neatfast.StdOutReporter(True))
 
     if 1:
-        pe = neat.ParallelEvaluator(4, eval_genome)
+        pe = neatfast.ParallelEvaluator(4, eval_genome)
         winner = pop.run(pe.evaluate, 1000)
     else:
         winner = pop.run(eval_genomes, 1000)
@@ -94,7 +94,7 @@ def run():
     # Show output of the most fit genome against a random input.
     print('\nBest genome:\n{!s}'.format(winner))
     print('\nOutput:')
-    winner_net = neat.nn.RecurrentNetwork.create(winner, config)
+    winner_net = neatfast.nn.RecurrentNetwork.create(winner, config)
     num_correct = 0
     for n in range(num_tests):
         print('\nRun {0} output:'.format(n))

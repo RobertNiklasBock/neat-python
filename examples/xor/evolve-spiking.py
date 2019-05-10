@@ -32,7 +32,7 @@ def compute_output(t0, t1):
 
 def simulate(genome, config):
     # Create a network of "fast spiking" Izhikevich neurons.
-    net = neat.iznn.IZNN.create(genome, config)
+    net = neatfast.iznn.IZNN.create(genome, config)
     dt = net.get_time_step_msec()
     sum_square_error = 0.0
     simulated = []
@@ -90,8 +90,8 @@ def eval_genomes(genomes, config):
 def run(config_path):
     # Load the config file, which is assumed to live in
     # the same directory as this script.
-    config = neat.Config(neat.iznn.IZGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.iznn.IZGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     # For this network, we use two output neurons and use the difference between
@@ -100,17 +100,17 @@ def run(config_path):
     # and this choice may not be the best for tackling a real problem.
     config.output_nodes = 2
 
-    pop = neat.population.Population(config)
+    pop = neatfast.population.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    pop.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
+    pop.add_reporter(neatfast.StdOutReporter(True))
+    stats = neatfast.StatisticsReporter()
     pop.add_reporter(stats)
 
     if 0:
         winner = pop.run(eval_genomes, 3000)
     else:
-        pe = neat.ParallelEvaluator(6, eval_genome)
+        pe = neatfast.ParallelEvaluator(6, eval_genome)
         winner = pop.run(pe.evaluate, 3000)
 
     # Display the winning genome.

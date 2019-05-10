@@ -3,8 +3,8 @@ import neat
 
 
 def test_basic():
-    p = neat.iznn.REGULAR_SPIKING_PARAMS
-    n = neat.iznn.IZNeuron(10, p['a'], p['b'], p['c'], p['d'], [])
+    p = neatfast.iznn.REGULAR_SPIKING_PARAMS
+    n = neatfast.iznn.IZNeuron(10, p['a'], p['b'], p['c'], p['d'], [])
     spike_train = []
     for i in range(1000):
         spike_train.append(n.v)
@@ -12,15 +12,15 @@ def test_basic():
 
 
 def test_network():
-    p = neat.iznn.INTRINSICALLY_BURSTING_PARAMS
-    neurons = {0: neat.iznn.IZNeuron(0, p['a'], p['b'], p['c'], p['d'], []),
-               1: neat.iznn.IZNeuron(0, p['a'], p['b'], p['c'], p['d'], []),
-               2: neat.iznn.IZNeuron(0, p['a'], p['b'], p['c'], p['d'], [(0, 0.123), (1, 0.234)]),
-               3: neat.iznn.IZNeuron(0, p['a'], p['b'], p['c'], p['d'], [])}
+    p = neatfast.iznn.INTRINSICALLY_BURSTING_PARAMS
+    neurons = {0: neatfast.iznn.IZNeuron(0, p['a'], p['b'], p['c'], p['d'], []),
+               1: neatfast.iznn.IZNeuron(0, p['a'], p['b'], p['c'], p['d'], []),
+               2: neatfast.iznn.IZNeuron(0, p['a'], p['b'], p['c'], p['d'], [(0, 0.123), (1, 0.234)]),
+               3: neatfast.iznn.IZNeuron(0, p['a'], p['b'], p['c'], p['d'], [])}
     inputs = [0, 1]
     outputs = [2]
 
-    net = neat.iznn.IZNN(neurons, inputs, outputs)
+    net = neatfast.iznn.IZNN(neurons, inputs, outputs)
     net.set_inputs([1.0, 0.0])
     net.advance(0.25)
     net.advance(0.25)

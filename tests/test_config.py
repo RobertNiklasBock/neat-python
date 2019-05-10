@@ -7,8 +7,8 @@ def test_nonexistent_config():
     an Exception with appropriate message."""
     passed = False
     try:
-        c = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                        neat.DefaultSpeciesSet, neat.DefaultStagnation,
+        c = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                        neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                         'wubba-lubba-dub-dub')
     except Exception as e:
         passed = 'No such config file' in str(e)
@@ -34,8 +34,8 @@ def test_bad_config_unknown_option():
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'bad_configuration2')
     try:
-        config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                             neat.DefaultSpeciesSet, neat.DefaultStagnation,
+        config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                             neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                              config_path)
     except NameError:
         pass
@@ -43,8 +43,8 @@ def test_bad_config_unknown_option():
         raise Exception("Did not get a NameError from an unknown configuration file option (in the 'DefaultSpeciesSet' section)")
     config3_path = os.path.join(local_dir, 'bad_configuration3')
     try:
-        config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                             neat.DefaultSpeciesSet, neat.DefaultStagnation,
+        config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                             neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                              config3_path)
     except NameError:
         pass
@@ -56,8 +56,8 @@ def test_bad_config_RuntimeError(config_file='bad_configuration4'):
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, config_file)
     try:
-        config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                             neat.DefaultSpeciesSet, neat.DefaultStagnation,
+        config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                             neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                              config_path)
     except RuntimeError:
         pass

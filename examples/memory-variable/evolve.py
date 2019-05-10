@@ -46,7 +46,7 @@ def test_network(net, input_sequence, num_ignore):
 
 
 def eval_genome(genome, config):
-    net = neat.nn.RecurrentNetwork.create(genome, config)
+    net = neatfast.nn.RecurrentNetwork.create(genome, config)
 
     error = 0.0
     for _ in range(num_tests):
@@ -76,22 +76,22 @@ def run():
     # Determine path to configuration file.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
-    pop = neat.Population(config)
-    stats = neat.StatisticsReporter()
+    pop = neatfast.Population(config)
+    stats = neatfast.StatisticsReporter()
     pop.add_reporter(stats)
-    pop.add_reporter(neat.StdOutReporter(True))
+    pop.add_reporter(neatfast.StdOutReporter(True))
 
-    pe = neat.ParallelEvaluator(4, eval_genome)
+    pe = neatfast.ParallelEvaluator(4, eval_genome)
     winner = pop.run(pe.evaluate, 1000)
 
     # Show output of the most fit genome against a random input.
     print('\nBest genome:\n{!s}'.format(winner))
     print('\nOutput:')
-    winner_net = neat.nn.RecurrentNetwork.create(winner, config)
+    winner_net = neatfast.nn.RecurrentNetwork.create(winner, config)
     for n in range(num_tests):
         print('\nRun {0} output:'.format(n))
 

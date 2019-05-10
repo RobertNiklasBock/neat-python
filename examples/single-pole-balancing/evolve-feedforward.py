@@ -18,7 +18,7 @@ simulation_seconds = 60.0
 
 # Use the NN network phenotype and the discrete actuator force function.
 def eval_genome(genome, config):
-    net = neat.nn.FeedForwardNetwork.create(genome, config)
+    net = neatfast.nn.FeedForwardNetwork.create(genome, config)
 
     fitnesses = []
 
@@ -59,16 +59,16 @@ def run():
     # the same directory as this script.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config-feedforward')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
-    pop = neat.Population(config)
-    stats = neat.StatisticsReporter()
+    pop = neatfast.Population(config)
+    stats = neatfast.StatisticsReporter()
     pop.add_reporter(stats)
-    pop.add_reporter(neat.StdOutReporter(True))
+    pop.add_reporter(neatfast.StdOutReporter(True))
 
-    pe = neat.ParallelEvaluator(4, eval_genome)
+    pe = neatfast.ParallelEvaluator(4, eval_genome)
     winner = pop.run(pe.evaluate)
 
     # Save the winner.

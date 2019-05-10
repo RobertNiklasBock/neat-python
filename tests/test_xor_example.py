@@ -15,7 +15,7 @@ def test_xor_example(uniform_weights=False):
     def eval_genomes(genomes, config):
         for genome_id, genome in genomes:
             genome.fitness = 1.0
-            net = neat.nn.FeedForwardNetwork.create(genome, config)
+            net = neatfast.nn.FeedForwardNetwork.create(genome, config)
             for xi, xo in zip(xor_inputs, xor_outputs):
                 output = net.activate(xi)
                 genome.fitness -= (output[0] - xo[0]) ** 2
@@ -27,8 +27,8 @@ def test_xor_example(uniform_weights=False):
     config_path = os.path.join(local_dir, 'test_configuration')
 
     # Load configuration.
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(neatfast.DefaultGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
     if uniform_weights:
@@ -38,20 +38,20 @@ def test_xor_example(uniform_weights=False):
         filename_prefix = 'neat-checkpoint-test_xor-'
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = neatfast.Population(config)
 
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
+    p.add_reporter(neatfast.StdOutReporter(True))
+    stats = neatfast.StatisticsReporter()
     p.add_reporter(stats)
-    checkpointer = neat.Checkpointer(25, 10, filename_prefix)
+    checkpointer = neatfast.Checkpointer(25, 10, filename_prefix)
     p.add_reporter(checkpointer)
 
     # Run for up to 100 generations, allowing extinction.
     winner = None
     try:
         winner = p.run(eval_genomes, 100)
-    except neat.CompleteExtinctionException as e:
+    except neatfast.CompleteExtinctionException as e:
         pass
 
     assert len(stats.get_fitness_median()), "Nothing returned from get_fitness_median()"
@@ -64,7 +64,7 @@ def test_xor_example(uniform_weights=False):
 
         # Show output of the most fit genome against training data.
         print('\nOutput:')
-        winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
+        winner_net = neatfast.nn.FeedForwardNetwork.create(winner, config)
         for xi, xo in zip(xor_inputs, xor_outputs):
             output = winner_net.activate(xi)
             print("input {!r}, expected output {!r}, got {!r}".format(xi, xo, output))
@@ -72,15 +72,15 @@ def test_xor_example(uniform_weights=False):
     if (checkpointer.last_generation_checkpoint >= 0) and (checkpointer.last_generation_checkpoint < 100):
         filename = '{0}{1}'.format(filename_prefix,checkpointer.last_generation_checkpoint)
         print("Restoring from {!s}".format(filename))
-        p2 = neat.checkpoint.Checkpointer.restore_checkpoint(filename)
-        p2.add_reporter(neat.StdOutReporter(True))
-        stats2 = neat.StatisticsReporter()
+        p2 = neatfast.checkpoint.Checkpointer.restore_checkpoint(filename)
+        p2.add_reporter(neatfast.StdOutReporter(True))
+        stats2 = neatfast.StatisticsReporter()
         p2.add_reporter(stats2)
 
         winner2 = None
         try:
             winner2 = p2.run(eval_genomes, (100-checkpointer.last_generation_checkpoint))
-        except neat.CompleteExtinctionException:
+        except neatfast.CompleteExtinctionException:
             pass
 
         if winner2:

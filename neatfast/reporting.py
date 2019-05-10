@@ -7,8 +7,8 @@ from __future__ import division, print_function
 
 import time
 
-from neat.math_util import mean, stdev
-from neat.six_util import itervalues, iterkeys
+from neatfast.math_util import mean, stdev
+from neatfast.six_util import itervalues, iterkeys
 
 # TODO: Add a curses-based reporter.
 

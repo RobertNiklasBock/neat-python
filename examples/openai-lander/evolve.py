@@ -29,7 +29,7 @@ print("observation space: {0!r}".format(env.observation_space))
 env = gym.wrappers.Monitor(env, 'results', force=True)
 
 
-class LanderGenome(neat.DefaultGenome):
+class LanderGenome(neatfast.DefaultGenome):
     def __init__(self, key):
         super().__init__(key)
         self.discount = None
@@ -125,7 +125,7 @@ class PooledErrorCompute(object):
         t0 = time.time()
         nets = []
         for gid, g in genomes:
-            nets.append((g, neat.nn.FeedForwardNetwork.create(g, config)))
+            nets.append((g, neatfast.nn.FeedForwardNetwork.create(g, config)))
 
         print("network creation time {0}".format(time.time() - t0))
         t0 = time.time()
@@ -162,16 +162,16 @@ def run():
     # the same directory as this script.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config')
-    config = neat.Config(LanderGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+    config = neatfast.Config(LanderGenome, neatfast.DefaultReproduction,
+                         neatfast.DefaultSpeciesSet, neatfast.DefaultStagnation,
                          config_path)
 
-    pop = neat.Population(config)
-    stats = neat.StatisticsReporter()
+    pop = neatfast.Population(config)
+    stats = neatfast.StatisticsReporter()
     pop.add_reporter(stats)
-    pop.add_reporter(neat.StdOutReporter(True))
+    pop.add_reporter(neatfast.StdOutReporter(True))
     # Checkpoint every 25 generations or 900 seconds.
-    pop.add_reporter(neat.Checkpointer(25, 900))
+    pop.add_reporter(neatfast.Checkpointer(25, 900))
 
     # Run until the winner from a generation is able to solve the environment
     # or the user interrupts the process.
@@ -201,7 +201,7 @@ def run():
             best_genomes = stats.best_unique_genomes(3)
             best_networks = []
             for g in best_genomes:
-                best_networks.append(neat.nn.FeedForwardNetwork.create(g, config))
+                best_networks.append(neatfast.nn.FeedForwardNetwork.create(g, config))
 
             solved = True
             best_scores = []
