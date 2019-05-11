@@ -1,6 +1,16 @@
 [![Build Status](https://travis-ci.org/CodeReclaimers/neat-python.svg)](https://travis-ci.org/CodeReclaimers/neat-python)
 [![Coverage Status](https://coveralls.io/repos/CodeReclaimers/neat-python/badge.svg?branch=master&service=github)](https://coveralls.io/github/CodeReclaimers/neat-python?branch=master)
 
+# IMPORTANT #
+This fork is currently used for an university project. It is not intended to compete with or rival the original fork and will most likely
+never generate a pull request. We just need certain modifications on the package level to produce a certain result.
+
+Please excuse any mixups.
+
+
+VVV Original ReadME below. VVV
+
+
 ## STATUS NOTE ##
 
 Due to lack of time on my part, this project is currently in maintenance-only mode.  The forks by [@drallensmith](https://github.com/drallensmith/neat-python) and [@bennr01](https://github.com/bennr01/neat-python) have been extended beyond this implementation a great deal, so those might be better starting points if you need more features than what you see here.
