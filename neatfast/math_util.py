@@ -6,13 +6,17 @@ import numpy as np
 
 
 def mean(values):
+    values = list(values)
     return np.mean(values)
 
 
 def median(values):
+    values = list(values)
     return np.median(values)
 
 def median2(values):
+    values = list(values)
+
     n = len(values)
     if n <= 2:
         return mean(values)
@@ -23,14 +27,17 @@ def median2(values):
     return (values[i - 1] + values[i])/2.0
 
 def variance(values):
+    values = list(values)
     return np.var(values)
 
 
 def stdev(values):
+    values = list(values)
     return np.std(values)
 
 
 def softmax(values):
+    values = list(values)
     """
     Compute the softmax of the given value set, v_i = exp(v_i) / s,
     where s = sum(exp(v_0), exp(v_1), ..)."""
